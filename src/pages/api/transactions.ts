@@ -5,6 +5,7 @@ import {
   ITransaction,
   ITransactionPreview,
 } from "@/interfaces/transaction.interface";
+import { findInObjects } from "@/utils/findInObjects";
 
 export default function handler(
   req: NextApiRequest,
@@ -12,21 +13,29 @@ export default function handler(
 ) {
   const token = req.headers.authorization;
   if (token === process.env.TOKEN) {
+    console.log("handler");
     console.log(req.query);
-    const { id } = req.query;
 
-    if (id) {
-      console.log(id);
-      const transaction = transactions.find((t) => t.id == id);
-      if (transaction) {
-        console.log(transaction);
-        res.status(200).send(transaction);
-      } else {
-        res.status(404).send("Error");
-      }
-    } else {
-      res.status(200).send(transactions);
+    const { search, type, status } = req.query;
+
+    let resultTransactions: ITransaction[] = transactions;
+    if (type) {
+      resultTransactions = transactions.filter(
+        (item) => item.type.indexOf(type as string) !== -1,
+      );
     }
+
+    if (status) {
+      resultTransactions = resultTransactions.filter(
+        (item) => item.status.indexOf(status as string) !== -1,
+      );
+    }
+
+    if (search) {
+      resultTransactions = findInObjects(resultTransactions, search);
+    }
+
+    res.status(200).send(resultTransactions);
   } else {
     res.status(401).send("unauthorised");
   }
