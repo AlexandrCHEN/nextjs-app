@@ -1,4 +1,4 @@
-import { FC } from "react";
+import React from "react";
 import { Doughnut } from "react-chartjs-2";
 import {
   Chart,
@@ -31,7 +31,9 @@ interface TransactionChartProps {
   transactionsList: ITransaction[];
 }
 
-const TransactionChart: FC<TransactionChartProps> = ({ transactionsList }) => {
+const TransactionChart: React.FC<TransactionChartProps> = ({
+  transactionsList,
+}) => {
   const chartData: ChartData<"doughnut"> = {
     labels: transactionsList.map((item) => item.category),
     datasets: [

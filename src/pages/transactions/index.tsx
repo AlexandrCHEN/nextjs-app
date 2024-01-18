@@ -6,10 +6,10 @@ import {
   AutoComplete,
   SelectProps,
   Input,
-  notification,
   DatePicker,
+  notification,
 } from "antd";
-
+import customParseFormat from "dayjs/plugin/customParseFormat";
 import { useDebounce } from "@/utils/useDebounce";
 import { useTranslation } from "react-i18next";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
@@ -24,12 +24,17 @@ import dayjs, { Dayjs } from "dayjs";
 
 const { Search } = Input;
 const { RangePicker } = DatePicker;
+dayjs.extend(customParseFormat);
+
 interface ITransactionsProps {
   transactionsList: ITransaction[];
   resStatus: number | null;
 }
+
 type RangeValue = [Dayjs | null, Dayjs | null] | null;
+
 const dateFormat = "YYYY-MM-DD";
+
 export const getServerSideProps: GetServerSideProps<
   ITransactionsProps
 > = async ({ query }: GetServerSidePropsContext) => {
@@ -39,12 +44,18 @@ export const getServerSideProps: GetServerSideProps<
     const data: ITransaction[] = await response.data;
 
     return {
-      props: { transactionsList: data, resStatus: status },
+      props: {
+        transactionsList: data,
+        resStatus: status,
+      },
     };
   } catch (error) {
     console.error("Error fetching data:", error);
     return {
-      props: { transactionsList: [], resStatus: null },
+      props: {
+        transactionsList: [],
+        resStatus: null,
+      },
     };
   }
 };
@@ -67,12 +78,13 @@ const Transactions: FC<ITransactionsProps> = ({
       notification.warning({
         placement: "top",
         message: "Ошибка получения данных",
-        duration: 1,
+        duration: 1.5,
       });
     }
-  }, [resStatus]);
+  });
+
   useEffect(() => {
-    if (searchInput) {
+    if (debouncedValue !== "") {
       router.push(
         {
           query: {
@@ -85,8 +97,9 @@ const Transactions: FC<ITransactionsProps> = ({
       );
     }
   }, [debouncedValue]);
+
   useEffect(() => {
-    const { dateEnd, dateStart, type, status } = router.query;
+    const { dateEnd, dateStart, type, status, search } = router.query;
 
     if (dateStart && dateEnd) {
       setDatePickerValue([
@@ -94,6 +107,7 @@ const Transactions: FC<ITransactionsProps> = ({
         dayjs(dateEnd as string, dateFormat),
       ]);
     }
+
     if (type) {
       setTypeSelect(type as string);
     }
@@ -101,12 +115,18 @@ const Transactions: FC<ITransactionsProps> = ({
     if (status) {
       setStatusSelect(status as string);
     }
-  }, []);
-  const onSearch = (value: string) => {
+
+    if (search) {
+      setSearchInput(search as string);
+    }
+  }, [router.query]);
+  const handleInputOnSearch = (value: string) => {
     setSearchInput(value);
   };
 
   const handleAutocompleteSearch = (value: string) => {
+    setSearchInput(value);
+
     setOptions(
       value
         ? Array.from(
@@ -125,7 +145,7 @@ const Transactions: FC<ITransactionsProps> = ({
     );
   };
 
-  const onSelect = (value: string) => {
+  const handleAutocompleteSelect = (value: string) => {
     setSearchInput(value);
   };
 
@@ -148,13 +168,12 @@ const Transactions: FC<ITransactionsProps> = ({
         {},
       );
     } else {
-      delete router.query.dateStart;
-      delete router.query.dateEnd;
+      const { dateStart, dateEnd, ...rest } = router.query;
 
       router.push(
         {
           query: {
-            ...router.query,
+            ...rest,
           },
         },
         undefined,
@@ -302,13 +321,14 @@ const Transactions: FC<ITransactionsProps> = ({
           <AutoComplete
             style={{ width: "100%" }}
             options={options}
-            onSelect={onSelect}
+            value={searchInput}
+            onSelect={handleAutocompleteSelect}
             onSearch={handleAutocompleteSearch}
           >
             <Search
-              defaultValue={(router.query.search as string) || ""}
+              value={searchInput}
               placeholder={t("searchPlaceholder")}
-              onSearch={onSearch}
+              onSearch={handleInputOnSearch}
               enterButton
               style={{ width: 300 }}
             />

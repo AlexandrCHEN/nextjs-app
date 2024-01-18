@@ -20,9 +20,9 @@ const SumsSummary: FC<ISumsSummaryProps> = ({ transactionsList }) => {
     let totalExpenseValue = 0;
 
     list.forEach((item) => {
-      if (item.type === TransactionTypeEnum.income) {
+      if (item.type === ("income" as TransactionTypeEnum)) {
         totalIncomeValue += item.amount;
-      } else if (item.type === TransactionTypeEnum.expense) {
+      } else if (item.type === ("expense" as TransactionTypeEnum)) {
         totalExpenseValue += item.amount;
       }
     });
@@ -40,9 +40,9 @@ const SumsSummary: FC<ISumsSummaryProps> = ({ transactionsList }) => {
         margin: "30px auto",
       }}
     >
-      <h3>Total Income: {totalIncome}</h3>
-      <h3>Total Expense: {totalExpense}</h3>
-      <h3>Balance: {balance}</h3>
+      <h3>Total Income: {totalIncome}$</h3>
+      <h3>Total Expense: {totalExpense}$</h3>
+      <h3>Balance: {balance}$</h3>
     </div>
   );
 };

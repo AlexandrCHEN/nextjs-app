@@ -26,7 +26,7 @@ const TransactionList: FC<ITransactionListProps> = ({ transactionsList }) => {
         >
           <Skeleton avatar title={false} loading={false} active>
             <List.Item.Meta
-              title={item.amount}
+              title={`${item.amount}$`}
               description={`${item.description} | ' ${item.date}`}
             />
             <div style={{ marginRight: 10 }}>{item.type}</div>
