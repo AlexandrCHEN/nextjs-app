@@ -1,6 +1,13 @@
 import React, { FC, useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { Select, Space, AutoComplete, SelectProps, Input } from "antd";
+import {
+  Select,
+  Space,
+  AutoComplete,
+  SelectProps,
+  Input,
+  notification,
+} from "antd";
 import { useDebounce } from "@/utils/useDebounce";
 import { useTranslation } from "react-i18next";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
@@ -9,11 +16,14 @@ import { ITransaction } from "@/interfaces/transaction.interface";
 import Diagram from "@/components/Diagram";
 import Sums from "@/components/Sums";
 import TransactionList from "@/components/TransactionList";
+import { TransactionTypeEnum } from "@/enums/transactionType.enum";
+import { TransactionStatusEnum } from "@/enums/transactionStatus.enum";
 
 const { Search } = Input;
 
 interface ITransactionsProps {
   transactionsList: ITransaction[];
+  resStatus: number | null;
 }
 
 export const getServerSideProps: GetServerSideProps<
@@ -21,21 +31,24 @@ export const getServerSideProps: GetServerSideProps<
 > = async ({ query }: GetServerSidePropsContext) => {
   try {
     const response = await axiosFetch.get(`/transactions/`, { params: query });
-
+    const status = response.status;
     const data: ITransaction[] = await response.data;
 
     return {
-      props: { transactionsList: data },
+      props: { transactionsList: data, resStatus: status },
     };
   } catch (error) {
     console.error("Error fetching data:", error);
     return {
-      props: { transactionsList: [] },
+      props: { transactionsList: [], resStatus: null },
     };
   }
 };
 
-const Transactions: FC<ITransactionsProps> = ({ transactionsList }) => {
+const Transactions: FC<ITransactionsProps> = ({
+  transactionsList,
+  resStatus,
+}) => {
   const [input, setInput] = useState("");
   const router = useRouter();
   const debouncedValue = useDebounce<string>(input, 1000);
@@ -54,12 +67,7 @@ const Transactions: FC<ITransactionsProps> = ({ transactionsList }) => {
       {},
     );
   }, [debouncedValue]);
-  // useEffect(() => {
-  //   const options = transactionsList.map((item) => {
-  //     return { value: item.category, label: item.category };
-  //   });
-  //   setOptions(options);
-  // }, []);
+
   const onSearch = (value: string) => {
     setInput(value);
   };
@@ -134,11 +142,11 @@ const Transactions: FC<ITransactionsProps> = ({ transactionsList }) => {
                 disabled: true,
               },
               {
-                value: "income",
+                value: TransactionTypeEnum.income,
                 label: t("income"),
               },
               {
-                value: "expense",
+                value: TransactionTypeEnum.expense,
                 label: t("expense"),
               },
             ]}
@@ -154,15 +162,15 @@ const Transactions: FC<ITransactionsProps> = ({ transactionsList }) => {
                 disabled: true,
               },
               {
-                value: "pending",
+                value: TransactionStatusEnum.pending,
                 label: t("pending"),
               },
               {
-                value: "completed",
+                value: TransactionStatusEnum.completed,
                 label: t("completed"),
               },
               {
-                value: "failed",
+                value: TransactionStatusEnum.failed,
                 label: t("failed"),
               },
             ]}

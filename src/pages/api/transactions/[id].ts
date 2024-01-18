@@ -18,8 +18,6 @@ export default function handler(
       } else {
         res.status(404).send("Error");
       }
-    } else {
-      res.status(400).send("bad request id is required");
     }
   } else {
     res.status(401).send("unauthorised");

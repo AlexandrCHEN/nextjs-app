@@ -5,27 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c4954dbd-74a1-4552-a77f-dce14026e6ea" name="Changes" comment="добавлена локализация добавлен вывод сумм, добавлен график">
-      <change afterPath="$PROJECT_DIR$/src/components/Diagram.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Sums.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/TransactionList.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/locales/en.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/locales/i18n.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/locales/kz.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/locales/ru.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Header.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Header.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/transaction.slice.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/transaction.slice.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/interfaces/transaction.interface.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/interfaces/transaction.interface.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/_app.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/_app.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/api/transactions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/api/transactions.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/enums/transactionStatus.enum.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/enums/transactionStatus.enum.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/enums/transactionType.enum.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/enums/transactionType.enum.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/api/transactions/[id].ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/api/transactions/[id].ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/api/transactions/dropdown.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/api/transactions/dropdown.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/transactions/[id].tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/transactions/[id].tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/transactions/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/transactions/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/globals.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/globals.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/findInObjects.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/findInObjects.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -107,7 +91,7 @@
       <option name="presentableId" value="Default" />
       <updated>1705467997093</updated>
       <workItem from="1705467998653" duration="9467000" />
-      <workItem from="1705498040524" duration="49813000" />
+      <workItem from="1705498040524" duration="52133000" />
     </task>
     <task id="LOCAL-00001" summary="Вывод списка транзакций и вывод всех деталей транзакции">
       <option name="closed" value="true" />
@@ -133,7 +117,15 @@
       <option name="project" value="LOCAL" />
       <updated>1705548683570</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="добавлена локализация добавлен вывод сумм, добавлен график">
+      <option name="closed" value="true" />
+      <created>1705548789586</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1705548789586</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
