@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c4954dbd-74a1-4552-a77f-dce14026e6ea" name="Changes" comment="добавлен фильтр, добавлены стили, добавлен график">
+    <list default="true" id="c4954dbd-74a1-4552-a77f-dce14026e6ea" name="Changes" comment="добавлена локализация добавлен вывод сумм, добавлен график">
       <change afterPath="$PROJECT_DIR$/src/components/Diagram.tsx" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/components/Sums.tsx" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/components/TransactionList.tsx" afterDir="false" />
@@ -107,7 +107,7 @@
       <option name="presentableId" value="Default" />
       <updated>1705467997093</updated>
       <workItem from="1705467998653" duration="9467000" />
-      <workItem from="1705498040524" duration="49254000" />
+      <workItem from="1705498040524" duration="49813000" />
     </task>
     <task id="LOCAL-00001" summary="Вывод списка транзакций и вывод всех деталей транзакции">
       <option name="closed" value="true" />
@@ -125,7 +125,15 @@
       <option name="project" value="LOCAL" />
       <updated>1705537204869</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="добавлена локализация добавлен вывод сумм, добавлен график">
+      <option name="closed" value="true" />
+      <created>1705548683570</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1705548683570</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -145,6 +153,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Вывод списка транзакций и вывод всех деталей транзакции" />
     <MESSAGE value="добавлен фильтр, добавлены стили, добавлен график" />
-    <option name="LAST_COMMIT_MESSAGE" value="добавлен фильтр, добавлены стили, добавлен график" />
+    <MESSAGE value="добавлена локализация добавлен вывод сумм, добавлен график" />
+    <option name="LAST_COMMIT_MESSAGE" value="добавлена локализация добавлен вывод сумм, добавлен график" />
   </component>
 </project>
