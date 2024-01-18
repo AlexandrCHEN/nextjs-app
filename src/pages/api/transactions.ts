@@ -1,21 +1,25 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
 import { transactions } from "@/pages/api/data/transactions";
-import { ITransaction } from "@/interfaces/transaction.interface";
+import { ITransactionService } from "@/interfaces/transaction.interface";
 import { findInObjects } from "@/utils/findInObjects";
 import dayjs from "dayjs";
 
 export default function handler(
   req: NextApiRequest,
-  res: NextApiResponse<ITransaction[] | ITransaction | null | string>,
+  res: NextApiResponse<
+    ITransactionService[] | ITransactionService | null | string
+  >,
 ) {
   const token = req.headers.authorization;
   if (token === process.env.TOKEN) {
     const { search, type, status, dateStart, dateEnd } = req.query;
 
-    let resultTransactions: ITransaction[] = transactions;
+    let resultTransactions: ITransactionService[] = transactions;
     if (type) {
-      resultTransactions = transactions.filter((item) => item.type === type);
+      resultTransactions = resultTransactions.filter(
+        (item) => item.type === type,
+      );
     }
 
     if (status) {
@@ -25,14 +29,18 @@ export default function handler(
     }
 
     if (dateStart) {
-      resultTransactions = resultTransactions.filter((item) =>
-        dayjs(item.date).isAfter(dayjs(dateStart as string)),
+      resultTransactions = resultTransactions.filter(
+        (item) =>
+          dayjs(item.date).isSame(dayjs(dateStart as string)) ||
+          dayjs(item.date).isAfter(dayjs(dateStart as string)),
       );
     }
 
     if (dateEnd) {
-      resultTransactions = resultTransactions.filter((item) =>
-        dayjs(item.date).isBefore(dayjs(dateEnd as string)),
+      resultTransactions = resultTransactions.filter(
+        (item) =>
+          dayjs(item.date).isSame(dayjs(dateEnd as string)) ||
+          dayjs(item.date).isBefore(dayjs(dateEnd as string)),
       );
     }
 

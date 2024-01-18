@@ -1,11 +1,11 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
 import { transactions } from "@/pages/api/data/transactions";
-import { ITransaction } from "@/interfaces/transaction.interface";
+import { ITransactionService } from "@/interfaces/transaction.interface";
 
 export default function handler(
   req: NextApiRequest,
-  res: NextApiResponse<ITransaction | null | string>,
+  res: NextApiResponse<ITransactionService | null | string>,
 ) {
   const token = req.headers.authorization;
   if (token === process.env.TOKEN) {
