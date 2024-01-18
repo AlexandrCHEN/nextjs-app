@@ -9,6 +9,7 @@ import {
   notification,
   DatePicker,
 } from "antd";
+
 import { useDebounce } from "@/utils/useDebounce";
 import { useTranslation } from "react-i18next";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
@@ -93,7 +94,14 @@ const Transactions: FC<ITransactionsProps> = ({
         dayjs(dateEnd as string, dateFormat),
       ]);
     }
-  }, [router.query]);
+    if (type) {
+      setTypeSelect(type as string);
+    }
+
+    if (status) {
+      setStatusSelect(status as string);
+    }
+  }, []);
   const onSearch = (value: string) => {
     setSearchInput(value);
   };
