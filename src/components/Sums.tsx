@@ -1,5 +1,6 @@
 import React, { FC, useEffect, useState } from "react";
 import { ITransaction } from "@/interfaces/transaction.interface";
+import { TransactionTypeEnum } from "@/enums/transactionType.enum";
 
 interface ISumsSummaryProps {
   transactionsList: ITransaction[];
@@ -15,18 +16,20 @@ const SumsSummary: FC<ISumsSummaryProps> = ({ transactionsList }) => {
   }, [transactionsList]);
 
   const calculateSums = (list: ITransaction[]) => {
-    setTotalIncome(0);
-    setTotalExpense(0);
+    let totalIncomeValue = 0;
+    let totalExpenseValue = 0;
 
     list.forEach((item) => {
-      if (item.type === "income") {
-        setTotalIncome((prev) => prev + item.amount);
-      } else if (item.type === "expense") {
-        setTotalExpense((prev) => prev + item.amount);
+      if (item.type === TransactionTypeEnum.income) {
+        totalIncomeValue += item.amount;
+      } else if (item.type === TransactionTypeEnum.expense) {
+        totalExpenseValue += item.amount;
       }
     });
 
-    setBalance(totalIncome - totalExpense);
+    setTotalIncome(totalIncomeValue);
+    setTotalExpense(-totalExpenseValue);
+    setBalance(totalIncomeValue + totalExpenseValue);
   };
 
   return (

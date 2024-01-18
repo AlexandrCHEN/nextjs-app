@@ -1,4 +1,4 @@
 export enum TransactionTypeEnum {
-  income = "Доход",
-  expense = "Расход",
+  income = "income",
+  expense = "expense",
 }

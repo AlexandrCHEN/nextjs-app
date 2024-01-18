@@ -4,11 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c4954dbd-74a1-4552-a77f-dce14026e6ea" name="Changes" comment="добавлена локализация добавлен вывод сумм, добавлен график">
+    <list default="true" id="c4954dbd-74a1-4552-a77f-dce14026e6ea" name="Changes" comment="маленькие фитчи с отображениями и изменения в enums">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Diagram.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Diagram.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Sums.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Sums.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/enums/transactionStatus.enum.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/enums/transactionStatus.enum.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/enums/transactionType.enum.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/enums/transactionType.enum.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/api/transactions/[id].ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/api/transactions/[id].ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/locales/en.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/locales/en.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/locales/kz.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/locales/kz.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/locales/ru.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/locales/ru.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/api/transactions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/api/transactions.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/transactions/[id].tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/transactions/[id].tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/transactions/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/transactions/index.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -91,7 +97,7 @@
       <option name="presentableId" value="Default" />
       <updated>1705467997093</updated>
       <workItem from="1705467998653" duration="9467000" />
-      <workItem from="1705498040524" duration="52133000" />
+      <workItem from="1705498040524" duration="59972000" />
     </task>
     <task id="LOCAL-00001" summary="Вывод списка транзакций и вывод всех деталей транзакции">
       <option name="closed" value="true" />
@@ -125,7 +131,15 @@
       <option name="project" value="LOCAL" />
       <updated>1705548789586</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="маленькие фитчи с отображениями и изменения в enums">
+      <option name="closed" value="true" />
+      <created>1705551224551</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1705551224551</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -146,6 +160,7 @@
     <MESSAGE value="Вывод списка транзакций и вывод всех деталей транзакции" />
     <MESSAGE value="добавлен фильтр, добавлены стили, добавлен график" />
     <MESSAGE value="добавлена локализация добавлен вывод сумм, добавлен график" />
-    <option name="LAST_COMMIT_MESSAGE" value="добавлена локализация добавлен вывод сумм, добавлен график" />
+    <MESSAGE value="маленькие фитчи с отображениями и изменения в enums" />
+    <option name="LAST_COMMIT_MESSAGE" value="маленькие фитчи с отображениями и изменения в enums" />
   </component>
 </project>

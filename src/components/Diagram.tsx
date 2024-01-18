@@ -1,5 +1,5 @@
-import React from "react";
-import { Line } from "react-chartjs-2";
+import { FC } from "react";
+import { Doughnut } from "react-chartjs-2";
 import {
   Chart,
   CategoryScale,
@@ -8,31 +8,59 @@ import {
   LineElement,
   Title,
   ChartData,
+  Tooltip,
+  Legend,
+  ArcElement,
+  Colors,
 } from "chart.js";
 import { ITransaction } from "@/interfaces/transaction.interface";
 
-Chart.register(CategoryScale, LinearScale, PointElement, LineElement, Title);
+Chart.register(
+  Colors,
+  ArcElement,
+  Tooltip,
+  Legend,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+);
 
 interface TransactionChartProps {
   transactionsList: ITransaction[];
 }
 
-const TransactionChart: React.FC<TransactionChartProps> = ({
-  transactionsList,
-}) => {
-  const chartData: ChartData<"line"> = {
+const TransactionChart: FC<TransactionChartProps> = ({ transactionsList }) => {
+  const chartData: ChartData<"doughnut"> = {
     labels: transactionsList.map((item) => item.category),
     datasets: [
       {
-        label: "Amount",
+        label: "Сумма",
         data: transactionsList.map((item) => item.amount),
-        fill: false,
-        borderColor: "rgba(75,192,192,1)",
       },
     ],
   };
 
-  return <Line data={chartData} />;
+  return (
+    <Doughnut
+      options={{
+        aspectRatio: 6,
+        plugins: {
+          legend: {
+            display: true,
+            position: "left",
+            labels: {
+              font: {
+                size: 12,
+              },
+            },
+          },
+        },
+      }}
+      data={chartData}
+    />
+  );
 };
 
 export default TransactionChart;

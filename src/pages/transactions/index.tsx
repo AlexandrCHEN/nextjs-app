@@ -7,6 +7,7 @@ import {
   SelectProps,
   Input,
   notification,
+  DatePicker,
 } from "antd";
 import { useDebounce } from "@/utils/useDebounce";
 import { useTranslation } from "react-i18next";
@@ -18,14 +19,15 @@ import Sums from "@/components/Sums";
 import TransactionList from "@/components/TransactionList";
 import { TransactionTypeEnum } from "@/enums/transactionType.enum";
 import { TransactionStatusEnum } from "@/enums/transactionStatus.enum";
+import { Dayjs } from "dayjs";
 
 const { Search } = Input;
-
+const { RangePicker } = DatePicker;
 interface ITransactionsProps {
   transactionsList: ITransaction[];
   resStatus: number | null;
 }
-
+type RangeValue = [Dayjs | null, Dayjs | null] | null;
 export const getServerSideProps: GetServerSideProps<
   ITransactionsProps
 > = async ({ query }: GetServerSidePropsContext) => {
@@ -49,27 +51,40 @@ const Transactions: FC<ITransactionsProps> = ({
   transactionsList,
   resStatus,
 }) => {
-  const [input, setInput] = useState("");
+  const [searchInput, setSearchInput] = useState("");
+  const [dateStart, setDateStart] = useState("");
+  const [dateEnd, setDateEnd] = useState("");
   const router = useRouter();
-  const debouncedValue = useDebounce<string>(input, 1000);
+  const debouncedValue = useDebounce<string>(searchInput, 1000);
   const [options, setOptions] = useState<SelectProps<object>["options"]>([]);
   const { t } = useTranslation();
 
   useEffect(() => {
-    router.push(
-      {
-        query: {
-          ...router.query,
-          search: debouncedValue,
+    if (resStatus !== 200) {
+      notification.warning({
+        placement: "top",
+        message: "Ошибка получения данных",
+        duration: 1,
+      });
+    }
+  }, [resStatus]);
+  useEffect(() => {
+    if (searchInput) {
+      router.push(
+        {
+          query: {
+            ...router.query,
+            search: debouncedValue,
+          },
         },
-      },
-      undefined,
-      {},
-    );
+        undefined,
+        {},
+      );
+    }
   }, [debouncedValue]);
 
   const onSearch = (value: string) => {
-    setInput(value);
+    setSearchInput(value);
   };
 
   const handleAutocompleteSearch = (value: string) => {
@@ -91,8 +106,33 @@ const Transactions: FC<ITransactionsProps> = ({
     );
   };
 
-  const onSelect = (value: string) => {};
+  const onSelect = (value: string) => {
+    setSearchInput(value);
+  };
 
+  const onRangePickerChange = (value: RangeValue) => {
+    if (value) {
+      const dateStartVal = value[0]?.format("YYYY-MM-DD") || dateStart;
+      const dateEndVal = value[1]?.format("YYYY-MM-DD") || dateEnd;
+
+      setDateStart(dateStartVal);
+      setDateEnd(dateEndVal);
+
+      router.push(
+        {
+          query: {
+            ...router.query,
+            dateStart: dateStartVal,
+            dateEnd: dateEndVal,
+          },
+        },
+        undefined,
+        {},
+      );
+    } else {
+      router.push("/transactions");
+    }
+  };
   const handleChangeTransactionType = (value: string) => {
     router.push(
       {
@@ -121,19 +161,18 @@ const Transactions: FC<ITransactionsProps> = ({
 
   return (
     <div>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          flexDirection: "row",
-          margin: "20px auto",
-        }}
-      >
-        <Space wrap>
+      <div>
+        <Space
+          wrap
+          style={{
+            width: "100%",
+            margin: "20px auto",
+            justifyContent: "space-between",
+          }}
+        >
           <Select
             defaultValue={(router.query.type as string) || ""}
-            style={{ width: 200 }}
+            style={{ width: 230 }}
             onChange={handleChangeTransactionType}
             options={[
               {
@@ -153,7 +192,7 @@ const Transactions: FC<ITransactionsProps> = ({
           />
           <Select
             defaultValue={(router.query.status as string) || ""}
-            style={{ width: 200 }}
+            style={{ width: 230 }}
             onChange={handleChangeTransactionStatus}
             options={[
               {
@@ -175,9 +214,11 @@ const Transactions: FC<ITransactionsProps> = ({
               },
             ]}
           />
+          <RangePicker style={{ width: 300 }} onChange={onRangePickerChange} />
+        </Space>
+        <Space style={{ width: "100%", justifyContent: "flex-end" }}>
           <AutoComplete
-            popupMatchSelectWidth={252}
-            style={{ width: 300 }}
+            style={{ width: "100%" }}
             options={options}
             onSelect={onSelect}
             onSearch={handleAutocompleteSearch}
@@ -187,7 +228,7 @@ const Transactions: FC<ITransactionsProps> = ({
               placeholder={t("searchPlaceholder")}
               onSearch={onSearch}
               enterButton
-              style={{ width: 200 }}
+              style={{ width: 300 }}
             />
           </AutoComplete>
         </Space>

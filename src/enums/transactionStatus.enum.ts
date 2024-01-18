@@ -1,5 +1,5 @@
 export enum TransactionStatusEnum {
-  pending = "В ожидании",
-  completed = "Выполнен",
-  failed = "Отклонен",
+  pending = "pending",
+  completed = "completed",
+  failed = "failed",
 }
