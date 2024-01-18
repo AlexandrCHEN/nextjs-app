@@ -1,40 +1,19 @@
-import { GetServerSideProps, GetServerSidePropsContext } from "next";
-import React, { FC, useDeferredValue, useEffect, useState } from "react";
-import { ITransactionPreview } from "@/interfaces/transaction.interface";
-import Link from "next/link";
-import { axiosFetch } from "@/utils/fetchApi";
-import {
-  Avatar,
-  Input,
-  List,
-  Skeleton,
-  Select,
-  Space,
-  AutoComplete,
-  SelectProps,
-} from "antd";
+import React, { FC, useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import { Select, Space, AutoComplete, SelectProps, Input } from "antd";
 import { useDebounce } from "@/utils/useDebounce";
-import { Line } from "react-chartjs-2";
-import {
-  Chart,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  ChartData,
-} from "chart.js";
+import { useTranslation } from "react-i18next";
+import { GetServerSideProps, GetServerSidePropsContext } from "next";
+import { axiosFetch } from "@/utils/fetchApi";
+import { ITransaction } from "@/interfaces/transaction.interface";
+import Diagram from "@/components/Diagram";
+import Sums from "@/components/Sums";
+import TransactionList from "@/components/TransactionList";
 
 const { Search } = Input;
-const options = [
-  { value: "Burns Bay Road" },
-  { value: "Downing Street" },
-  { value: "Wall Street" },
-];
 
 interface ITransactionsProps {
-  transactionsList: ITransactionPreview[];
+  transactionsList: ITransaction[];
 }
 
 export const getServerSideProps: GetServerSideProps<
@@ -43,14 +22,13 @@ export const getServerSideProps: GetServerSideProps<
   try {
     const response = await axiosFetch.get(`/transactions/`, { params: query });
 
-    const data: ITransactionPreview[] = await response.data;
+    const data: ITransaction[] = await response.data;
 
     return {
       props: { transactionsList: data },
     };
   } catch (error) {
-    // @ts-ignore
-    console.error("Error fetching data:", error.message);
+    console.error("Error fetching data:", error);
     return {
       props: { transactionsList: [] },
     };
@@ -62,35 +40,26 @@ const Transactions: FC<ITransactionsProps> = ({ transactionsList }) => {
   const router = useRouter();
   const debouncedValue = useDebounce<string>(input, 1000);
   const [options, setOptions] = useState<SelectProps<object>["options"]>([]);
-
-  Chart.register(CategoryScale, LinearScale, PointElement, LineElement, Title);
-  const chartData: ChartData = {
-    labels: transactionsList.map((item) => item.category),
-    datasets: [
-      {
-        label: "Amount",
-        data: transactionsList.map((item) => item.amount),
-        fill: false,
-        borderColor: "rgba(75,192,192,1)",
-      },
-    ],
-  };
+  const { t } = useTranslation();
 
   useEffect(() => {
-    if (input) {
-      router.push(
-        {
-          query: {
-            ...router.query,
-            search: debouncedValue,
-          },
+    router.push(
+      {
+        query: {
+          ...router.query,
+          search: debouncedValue,
         },
-        undefined,
-        {},
-      );
-    }
+      },
+      undefined,
+      {},
+    );
   }, [debouncedValue]);
-
+  // useEffect(() => {
+  //   const options = transactionsList.map((item) => {
+  //     return { value: item.category, label: item.category };
+  //   });
+  //   setOptions(options);
+  // }, []);
   const onSearch = (value: string) => {
     setInput(value);
   };
@@ -98,19 +67,23 @@ const Transactions: FC<ITransactionsProps> = ({ transactionsList }) => {
   const handleAutocompleteSearch = (value: string) => {
     setOptions(
       value
-        ? [
-            {
-              value: "Проект",
-              label: "Проект",
-            },
-          ]
+        ? Array.from(
+            new Set(
+              transactionsList
+                .filter((t) =>
+                  t.category.toLowerCase().includes(value.toLowerCase()),
+                )
+                .map((t) => t.category),
+            ),
+          ).map((category) => ({
+            value: category,
+            label: category,
+          }))
         : [],
     );
   };
 
-  const onSelect = (value: string) => {
-    console.log("onSelect", value);
-  };
+  const onSelect = (value: string) => {};
 
   const handleChangeTransactionType = (value: string) => {
     router.push(
@@ -142,8 +115,11 @@ const Transactions: FC<ITransactionsProps> = ({ transactionsList }) => {
     <div>
       <div
         style={{
-          marginTop: 20,
-          marginBottom: 20,
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          flexDirection: "row",
+          margin: "20px auto",
         }}
       >
         <Space wrap>
@@ -154,16 +130,16 @@ const Transactions: FC<ITransactionsProps> = ({ transactionsList }) => {
             options={[
               {
                 value: "",
-                label: "Выберите тип",
+                label: t("selectType"),
                 disabled: true,
               },
               {
                 value: "income",
-                label: "income",
+                label: t("income"),
               },
               {
                 value: "expense",
-                label: "expense",
+                label: t("expense"),
               },
             ]}
           />
@@ -174,20 +150,20 @@ const Transactions: FC<ITransactionsProps> = ({ transactionsList }) => {
             options={[
               {
                 value: "",
-                label: "Выберите статус",
+                label: t("selectStatus"),
                 disabled: true,
               },
               {
                 value: "pending",
-                label: "pending",
+                label: t("pending"),
               },
               {
                 value: "completed",
-                label: "completed",
+                label: t("completed"),
               },
               {
                 value: "failed",
-                label: "failed",
+                label: t("failed"),
               },
             ]}
           />
@@ -197,11 +173,10 @@ const Transactions: FC<ITransactionsProps> = ({ transactionsList }) => {
             options={options}
             onSelect={onSelect}
             onSearch={handleAutocompleteSearch}
-            size="large"
           >
             <Search
               defaultValue={(router.query.search as string) || ""}
-              placeholder="Поиск"
+              placeholder={t("searchPlaceholder")}
               onSearch={onSearch}
               enterButton
               style={{ width: 200 }}
@@ -209,40 +184,10 @@ const Transactions: FC<ITransactionsProps> = ({ transactionsList }) => {
           </AutoComplete>
         </Space>
       </div>
-      <Line data={chartData} />
+      <Sums transactionsList={transactionsList} />
+      <Diagram transactionsList={transactionsList} />
       {transactionsList && (
-        <List
-          className="demo-loadmore-list"
-          itemLayout="horizontal"
-          dataSource={transactionsList}
-          renderItem={(item) => (
-            <List.Item
-              actions={[
-                <Link key="details" href={`/transactions/${item.id}`}>
-                  Подробнее
-                </Link>,
-              ]}
-            >
-              <Skeleton avatar title={false} loading={false} active>
-                <List.Item.Meta
-                  // avatar={
-                  //   <Avatar
-                  //     src={faker.image.urlPlaceholder({
-                  //       width: 80,
-                  //       height: 80,
-                  //       text: faker.word.adjective({ strategy: "shortest" }),
-                  //     })}
-                  //   />
-                  // }
-                  title={item.amount}
-                  description={`${item.description} | ' ${item.date}`}
-                />
-                <div style={{ marginRight: 10 }}>{item.type}</div>
-                <div>{item.status}</div>
-              </Skeleton>
-            </List.Item>
-          )}
-        />
+        <TransactionList transactionsList={transactionsList} />
       )}
     </div>
   );

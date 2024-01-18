@@ -20,16 +20,12 @@ export const getServerSideProps = async (
     const data: ITransaction = await response.data;
 
     const dataDescription = Object.keys(data).map((item) => {
-      console.log(item);
-
       return {
         key: item,
         label: item,
         children: data[item] as keyof ITransaction,
       };
     });
-
-    console.log(dataDescription);
 
     return {
       props: { transaction: data, dataDescription },

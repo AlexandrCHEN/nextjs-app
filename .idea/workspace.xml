@@ -4,29 +4,28 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c4954dbd-74a1-4552-a77f-dce14026e6ea" name="Changes" comment="Вывод списка транзакций и вывод всех деталей транзакции">
-      <change afterPath="$PROJECT_DIR$/src/pages/api/transactions/[id].ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/api/transactions/dropdown.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/theme/themeConfig.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utils/findInObjects.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utils/useDebounce.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/next.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/next.config.js" afterDir="false" />
+    <list default="true" id="c4954dbd-74a1-4552-a77f-dce14026e6ea" name="Changes" comment="добавлен фильтр, добавлены стили, добавлен график">
+      <change afterPath="$PROJECT_DIR$/src/components/Diagram.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Sums.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/TransactionList.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/locales/en.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/locales/i18n.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/locales/kz.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/locales/ru.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Header.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Header.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/features/transaction.slice.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/transaction.slice.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/interfaces/transaction.interface.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/interfaces/transaction.interface.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/_app.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/_app.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/_document.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/_document.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/api/data/transactions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/api/data/transactions.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/api/transactions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/api/transactions.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/api/transactions/[id].ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/api/transactions/[id].ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/api/transactions/dropdown.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/api/transactions/dropdown.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/transactions/[id].tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/transactions/[id].tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/transactions/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/transactions/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/Home.module.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/Home.module.scss" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/styles/globals.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/globals.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/fetchApi.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/fetchApi.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/findInObjects.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/findInObjects.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,8 +35,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="TypeScript JSX File" />
         <option value="TypeScript File" />
+        <option value="JavaScript File" />
+        <option value="TypeScript JSX File" />
       </list>
     </option>
   </component>
@@ -70,7 +70,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "/Users/alexandr/Documents/nextjs-app",
+    "last_opened_file_path": "/Users/alexandr/Documents/nextjs-app/src/pages/api/data",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.standard": "true",
     "node.js.detected.package.tslint": "true",
@@ -86,11 +86,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/pages/api/data" />
+      <recent name="$PROJECT_DIR$/src/locales" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/src" />
       <recent name="$PROJECT_DIR$/src/pages/transactions" />
-      <recent name="$PROJECT_DIR$/src/pages" />
-      <recent name="$PROJECT_DIR$/src/pages/api" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/pages/api" />
@@ -107,7 +107,7 @@
       <option name="presentableId" value="Default" />
       <updated>1705467997093</updated>
       <workItem from="1705467998653" duration="9467000" />
-      <workItem from="1705498040524" duration="38195000" />
+      <workItem from="1705498040524" duration="49254000" />
     </task>
     <task id="LOCAL-00001" summary="Вывод списка транзакций и вывод всех деталей транзакции">
       <option name="closed" value="true" />
@@ -117,7 +117,15 @@
       <option name="project" value="LOCAL" />
       <updated>1705510388795</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="добавлен фильтр, добавлены стили, добавлен график">
+      <option name="closed" value="true" />
+      <created>1705537204869</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1705537204869</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -136,6 +144,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Вывод списка транзакций и вывод всех деталей транзакции" />
-    <option name="LAST_COMMIT_MESSAGE" value="Вывод списка транзакций и вывод всех деталей транзакции" />
+    <MESSAGE value="добавлен фильтр, добавлены стили, добавлен график" />
+    <option name="LAST_COMMIT_MESSAGE" value="добавлен фильтр, добавлены стили, добавлен график" />
   </component>
 </project>
