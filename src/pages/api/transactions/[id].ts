@@ -1,7 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import type { NextApiRequest, NextApiResponse } from "next";
-import { transactions } from "@/pages/api/data/transactions";
-import { ITransactionService } from "@/interfaces/transaction.interface";
+import type { NextApiRequest, NextApiResponse } from 'next';
+import { transactions } from '@/pages/api/data/transactions';
+import { ITransactionService } from '@/interfaces/transaction.interface';
 
 export default function handler(
   req: NextApiRequest,
@@ -16,10 +16,10 @@ export default function handler(
       if (transaction) {
         res.status(200).send(transaction);
       } else {
-        res.status(404).send("Error");
+        res.status(404).send('Error');
       }
     }
   } else {
-    res.status(401).send("unauthorised");
+    res.status(401).send('unauthorised');
   }
 }

@@ -1,9 +1,9 @@
-import i18n from "i18next";
-import { initReactI18next } from "react-i18next";
+import i18n from 'i18next';
+import { initReactI18next } from 'react-i18next';
 
-import enTranslation from "./en.json";
-import ruTranslation from "./ru.json";
-import kkTranslation from "./kz.json";
+import enTranslation from './en.json';
+import ruTranslation from './ru.json';
+import kkTranslation from './kz.json';
 
 const resources = {
   en: {
@@ -21,17 +21,17 @@ i18n
   .use(initReactI18next)
   .init({
     resources,
-    lng: "ru",
-    fallbackLng: "ru",
+    lng: 'ru',
+    fallbackLng: 'ru',
     interpolation: {
       escapeValue: false,
     },
   })
   .then(() => {
-    console.log("i18n initialized successfully");
+    console.log('i18n initialized successfully');
   })
   .catch((error) => {
-    console.error("Error initializing i18n:", error);
+    console.error('Error initializing i18n:', error);
   });
 
 export default i18n;

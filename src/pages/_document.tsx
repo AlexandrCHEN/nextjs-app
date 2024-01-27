@@ -1,6 +1,6 @@
 import React from 'react';
 import { createCache, extractStyle, StyleProvider } from '@ant-design/cssinjs';
-import Document, { Html, Head, Main, NextScript } from 'next/document'
+import Document, { Html, Head, Main, NextScript } from 'next/document';
 import type { DocumentContext } from 'next/document';
 
 function MyDocument() {
@@ -8,11 +8,11 @@ function MyDocument() {
     <Html lang="en">
       <Head />
       <body>
-      <Main />
-      <NextScript />
+        <Main />
+        <NextScript />
       </body>
     </Html>
-  )
+  );
 }
 
 MyDocument.getInitialProps = async (ctx: DocumentContext) => {

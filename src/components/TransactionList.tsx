@@ -1,8 +1,8 @@
-import React, { FC } from "react";
-import { List, Skeleton } from "antd";
-import Link from "next/link";
-import { useTranslation } from "react-i18next";
-import { ITransaction } from "@/interfaces/transaction.interface";
+import React, { FC } from 'react';
+import { List, Skeleton } from 'antd';
+import Link from 'next/link';
+import { useTranslation } from 'react-i18next';
+import { ITransaction } from '@/interfaces/transaction.interface';
 
 interface ITransactionListProps {
   transactionsList: ITransaction[];
@@ -20,7 +20,7 @@ const TransactionList: FC<ITransactionListProps> = ({ transactionsList }) => {
         <List.Item
           actions={[
             <Link key="details" href={`/transactions/${item.id}`}>
-              {t("detailsLink")}
+              {t('detailsLink')}
             </Link>,
           ]}
         >

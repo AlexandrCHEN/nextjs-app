@@ -1,11 +1,11 @@
 import {
   TransactionTypeEnum,
   TransactionTypeServiceEnum,
-} from "@/enums/transactionType.enum";
+} from '@/enums/transactionType.enum';
 import {
   TransactionStatusEnum,
   TransactionStatusServiceEnum,
-} from "@/enums/transactionStatus.enum";
+} from '@/enums/transactionStatus.enum';
 export interface ITransaction {
   id: string;
   date: string;

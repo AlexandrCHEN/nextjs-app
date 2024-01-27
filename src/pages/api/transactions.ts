@@ -1,15 +1,13 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import type { NextApiRequest, NextApiResponse } from "next";
-import { transactions } from "@/pages/api/data/transactions";
-import { ITransactionService } from "@/interfaces/transaction.interface";
-import { findInObjects } from "@/utils/findInObjects";
-import dayjs from "dayjs";
+import type { NextApiRequest, NextApiResponse } from 'next';
+import { transactions } from '@/pages/api/data/transactions';
+import { ITransactionService } from '@/interfaces/transaction.interface';
+import { findInObjects } from '@/utils/findInObjects';
+import dayjs from 'dayjs';
 
 export default function handler(
   req: NextApiRequest,
-  res: NextApiResponse<
-    ITransactionService[] | ITransactionService | null | string
-  >,
+  res: NextApiResponse<ITransactionService[] | ITransactionService | null | string>,
 ) {
   const token = req.headers.authorization;
   if (token === process.env.TOKEN) {
@@ -17,15 +15,11 @@ export default function handler(
 
     let resultTransactions: ITransactionService[] = transactions;
     if (type) {
-      resultTransactions = resultTransactions.filter(
-        (item) => item.type === type,
-      );
+      resultTransactions = resultTransactions.filter((item) => item.type === type);
     }
 
     if (status) {
-      resultTransactions = resultTransactions.filter(
-        (item) => item.status === status,
-      );
+      resultTransactions = resultTransactions.filter((item) => item.status === status);
     }
 
     if (dateStart) {
@@ -50,6 +44,6 @@ export default function handler(
 
     res.status(200).send(resultTransactions);
   } else {
-    res.status(401).send("unauthorised");
+    res.status(401).send('unauthorised');
   }
 }

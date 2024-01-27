@@ -1,5 +1,5 @@
-import React from "react";
-import { Doughnut } from "react-chartjs-2";
+import React from 'react';
+import { Doughnut } from 'react-chartjs-2';
 import {
   Chart,
   CategoryScale,
@@ -12,8 +12,8 @@ import {
   Legend,
   ArcElement,
   Colors,
-} from "chart.js";
-import { ITransaction } from "@/interfaces/transaction.interface";
+} from 'chart.js';
+import { ITransaction } from '@/interfaces/transaction.interface';
 
 Chart.register(
   Colors,
@@ -31,14 +31,12 @@ interface TransactionChartProps {
   transactionsList: ITransaction[];
 }
 
-const TransactionChart: React.FC<TransactionChartProps> = ({
-  transactionsList,
-}) => {
-  const chartData: ChartData<"doughnut"> = {
+const TransactionChart: React.FC<TransactionChartProps> = ({ transactionsList }) => {
+  const chartData: ChartData<'doughnut'> = {
     labels: transactionsList.map((item) => item.category),
     datasets: [
       {
-        label: "Сумма",
+        label: 'Сумма',
         data: transactionsList.map((item) => item.amount),
       },
     ],
@@ -51,7 +49,7 @@ const TransactionChart: React.FC<TransactionChartProps> = ({
         plugins: {
           legend: {
             display: true,
-            position: "left",
+            position: 'left',
             labels: {
               font: {
                 size: 12,

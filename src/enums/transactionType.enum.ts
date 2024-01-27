@@ -1,9 +1,9 @@
 export enum TransactionTypeEnum {
-  income = "Доход",
-  expense = "Расход",
+  income = 'Доход',
+  expense = 'Расход',
 }
 
 export enum TransactionTypeServiceEnum {
-  INCOME = "income",
-  EXPENSE = "expense",
+  INCOME = 'income',
+  EXPENSE = 'expense',
 }

@@ -1,5 +1,5 @@
-import React, { FC, useEffect, useState } from "react";
-import { useRouter } from "next/router";
+import React, { FC, useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import {
   Select,
   Space,
@@ -8,19 +8,20 @@ import {
   Input,
   DatePicker,
   notification,
-} from "antd";
-import customParseFormat from "dayjs/plugin/customParseFormat";
-import { useDebounce } from "@/utils/useDebounce";
-import { useTranslation } from "react-i18next";
-import { GetServerSideProps, GetServerSidePropsContext } from "next";
-import { axiosFetch } from "@/utils/fetchApi";
-import { ITransaction } from "@/interfaces/transaction.interface";
-import Diagram from "@/components/Diagram";
-import Sums from "@/components/Sums";
-import TransactionList from "@/components/TransactionList";
-import { TransactionTypeServiceEnum } from "@/enums/transactionType.enum";
-import { TransactionStatusServiceEnum } from "@/enums/transactionStatus.enum";
-import dayjs, { Dayjs } from "dayjs";
+} from 'antd';
+
+import customParseFormat from 'dayjs/plugin/customParseFormat';
+import { useDebounce } from '@/utils/useDebounce';
+import { useTranslation } from 'react-i18next';
+import { GetServerSideProps, GetServerSidePropsContext } from 'next';
+import { axiosFetch } from '@/utils/fetchApi';
+import { ITransaction } from '@/interfaces/transaction.interface';
+import Diagram from '@/components/Diagram';
+import Sums from '@/components/Sums';
+import TransactionList from '@/components/TransactionList';
+import { TransactionTypeServiceEnum } from '@/enums/transactionType.enum';
+import { TransactionStatusServiceEnum } from '@/enums/transactionStatus.enum';
+import dayjs, { Dayjs } from 'dayjs';
 
 const { Search } = Input;
 const { RangePicker } = DatePicker;
@@ -33,11 +34,11 @@ interface ITransactionsProps {
 
 type RangeValue = [Dayjs | null, Dayjs | null] | null;
 
-const dateFormat = "YYYY-MM-DD";
+const dateFormat = 'YYYY-MM-DD';
 
-export const getServerSideProps: GetServerSideProps<
-  ITransactionsProps
-> = async ({ query }: GetServerSidePropsContext) => {
+export const getServerSideProps: GetServerSideProps<ITransactionsProps> = async ({
+  query,
+}: GetServerSidePropsContext) => {
   try {
     const response = await axiosFetch.get(`/transactions/`, { params: query });
     const status = response.status;
@@ -50,7 +51,7 @@ export const getServerSideProps: GetServerSideProps<
       },
     };
   } catch (error) {
-    console.error("Error fetching data:", error);
+    console.error('Error fetching data:', error);
     return {
       props: {
         transactionsList: [],
@@ -60,31 +61,28 @@ export const getServerSideProps: GetServerSideProps<
   }
 };
 
-const Transactions: FC<ITransactionsProps> = ({
-  transactionsList,
-  resStatus,
-}) => {
-  const [searchInput, setSearchInput] = useState("");
-  const [typeSelect, setTypeSelect] = useState("");
-  const [statusSelect, setStatusSelect] = useState("");
+const Transactions: FC<ITransactionsProps> = ({ transactionsList, resStatus }) => {
+  const [searchInput, setSearchInput] = useState('');
+  const [typeSelect, setTypeSelect] = useState('');
+  const [statusSelect, setStatusSelect] = useState('');
   const [datePickerValue, setDatePickerValue] = useState<RangeValue>(null);
   const router = useRouter();
   const debouncedValue = useDebounce<string>(searchInput, 1000);
-  const [options, setOptions] = useState<SelectProps<object>["options"]>([]);
+  const [options, setOptions] = useState<SelectProps<object>['options']>([]);
   const { t } = useTranslation();
 
   useEffect(() => {
     if (resStatus !== 200) {
       notification.warning({
-        placement: "top",
-        message: "Ошибка получения данных",
+        placement: 'top',
+        message: 'Ошибка получения данных',
         duration: 1.5,
       });
     }
   });
 
   useEffect(() => {
-    if (debouncedValue !== "") {
+    if (debouncedValue !== '') {
       router.push(
         {
           query: {
@@ -132,9 +130,7 @@ const Transactions: FC<ITransactionsProps> = ({
         ? Array.from(
             new Set(
               transactionsList
-                .filter((t) =>
-                  t.category.toLowerCase().includes(value.toLowerCase()),
-                )
+                .filter((t) => t.category.toLowerCase().includes(value.toLowerCase()))
                 .map((t) => t.category),
             ),
           ).map((category) => ({
@@ -183,7 +179,7 @@ const Transactions: FC<ITransactionsProps> = ({
   };
 
   const onClearTypeChange = () => {
-    setTypeSelect("");
+    setTypeSelect('');
 
     const { type, ...rest } = router.query;
 
@@ -199,7 +195,7 @@ const Transactions: FC<ITransactionsProps> = ({
   };
 
   const onClearStatusChange = () => {
-    setStatusSelect("");
+    setStatusSelect('');
 
     const { status, ...rest } = router.query;
 
@@ -253,9 +249,9 @@ const Transactions: FC<ITransactionsProps> = ({
         <Space
           wrap
           style={{
-            width: "100%",
-            margin: "20px auto",
-            justifyContent: "space-between",
+            width: '100%',
+            margin: '20px auto',
+            justifyContent: 'space-between',
           }}
         >
           <Select
@@ -266,17 +262,17 @@ const Transactions: FC<ITransactionsProps> = ({
             onChange={handleChangeTransactionType}
             options={[
               {
-                value: "",
-                label: t("selectType"),
+                value: '',
+                label: t('selectType'),
                 disabled: true,
               },
               {
                 value: TransactionTypeServiceEnum.INCOME,
-                label: t("income"),
+                label: t('income'),
               },
               {
                 value: TransactionTypeServiceEnum.EXPENSE,
-                label: t("expense"),
+                label: t('expense'),
               },
             ]}
           />
@@ -288,21 +284,21 @@ const Transactions: FC<ITransactionsProps> = ({
             onChange={handleChangeTransactionStatus}
             options={[
               {
-                value: "",
-                label: t("selectStatus"),
+                value: '',
+                label: t('selectStatus'),
                 disabled: true,
               },
               {
                 value: TransactionStatusServiceEnum.PENDING,
-                label: t("pending"),
+                label: t('pending'),
               },
               {
                 value: TransactionStatusServiceEnum.COMPLETED,
-                label: t("completed"),
+                label: t('completed'),
               },
               {
                 value: TransactionStatusServiceEnum.FAILED,
-                label: t("failed"),
+                label: t('failed'),
               },
             ]}
           />
@@ -314,12 +310,12 @@ const Transactions: FC<ITransactionsProps> = ({
         </Space>
         <Space
           style={{
-            width: "100%",
-            justifyContent: "flex-end",
+            width: '100%',
+            justifyContent: 'flex-end',
           }}
         >
           <AutoComplete
-            style={{ width: "100%" }}
+            style={{ width: '100%' }}
             options={options}
             value={searchInput}
             onSelect={handleAutocompleteSelect}
@@ -327,7 +323,7 @@ const Transactions: FC<ITransactionsProps> = ({
           >
             <Search
               value={searchInput}
-              placeholder={t("searchPlaceholder")}
+              placeholder={t('searchPlaceholder')}
               onSearch={handleInputOnSearch}
               enterButton
               style={{ width: 300 }}
@@ -337,9 +333,7 @@ const Transactions: FC<ITransactionsProps> = ({
       </div>
       <Sums transactionsList={transactionsList} />
       <Diagram transactionsList={transactionsList} />
-      {transactionsList && (
-        <TransactionList transactionsList={transactionsList} />
-      )}
+      {transactionsList && <TransactionList transactionsList={transactionsList} />}
     </div>
   );
 };
